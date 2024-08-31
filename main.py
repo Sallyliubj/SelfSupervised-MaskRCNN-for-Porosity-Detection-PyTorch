@@ -57,6 +57,23 @@ user_refinement = False
 # Maximum loop to stop the entire process
 max_loop = 10
 
+# Move train data into loop_1/in
+src_folder = os.path.join(ROOT_DIR, "train")
+dest_folder = os.path.join(DATA_DIR, "loop_1/in")
+create_new_folder_and_copy_images(src_folder, dest_folder)
+
+# Move Original images to loop_1's in_folder
+src_folder = os.path.join(ROOT_DIR, "train")
+dest_folder = os.path.join(DATA_DIR, "loop_1/in")
+copy_original_images(src_folder, dest_folder)
+
+# Update COCO-JSON file
+train_folder_path = os.path.join(DATA_DIR, "loop_1/in")
+train_json_path = os.path.join(DATA_DIR, "loop_1/in/via_region_data.json")
+process_masks(train_folder_path, train_json_path)
+
+
+
 for loop in range (1, max_loop):
     # Train the model
     train_root = os.path.join(ROOT_DIR, f"Reinforcement/loop_{loop}/in")
